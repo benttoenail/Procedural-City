@@ -24,7 +24,12 @@ public class FlyerMove : MonoBehaviour {
 
     }
 
-    //Object Still rotates slightly after bouncing off an object
+
+    Vector3 returnRotation;
+    private bool returningRotation = false;
+    public float correctOrientSpeed;
+
+
     void FlyerControls()
     {
         #region FORWARD/SIDE MOVEMENT
@@ -34,19 +39,16 @@ public class FlyerMove : MonoBehaviour {
             //move forward
             rb.AddForce(transform.forward * speed);
         }
-
         if (Input.GetKey(KeyCode.S))
         {
             //move Back
             rb.AddForce((transform.forward*-1) * speed);
         }
-
         if (Input.GetKey(KeyCode.A))
         {
             //strafe left
             rb.AddForce((transform.right*-1) * speed);
         }
-
         if (Input.GetKey(KeyCode.D))
         {
             //strafe Right
@@ -60,19 +62,16 @@ public class FlyerMove : MonoBehaviour {
             //move up
             rb.AddForce(transform.up * speed);
         }
-
         if (Input.GetKey(KeyCode.DownArrow))
         {
             //move down
             rb.AddForce((transform.up *-1) * speed);
         }
-
         if (Input.GetKey(KeyCode.RightArrow))
         {
             //turn right
             rb.AddTorque(transform.up * torque);
         }
-
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //turn right
@@ -80,19 +79,15 @@ public class FlyerMove : MonoBehaviour {
         }
         #endregion
 
-        if (isColliding)
-        {
-            rb.freezeRotation = true;
-        }
-        else
-        {
-            rb.freezeRotation = false;
-        }
+        //Return to proper rotation
+        returnRotation = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), Time.deltaTime * correctOrientSpeed);
+
     }
 
 
     void OnCollisionEnter(Collision col)
-    {
+    {   
         isColliding = true;
     }
 

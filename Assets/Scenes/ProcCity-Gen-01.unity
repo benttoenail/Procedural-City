@@ -401,6 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   torque: 4
+  correctOrientSpeed: 5
 --- !u!1 &2102917868
 GameObject:
   m_ObjectHideFlags: 0

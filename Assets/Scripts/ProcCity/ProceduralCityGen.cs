@@ -58,7 +58,7 @@ public class ProceduralCityGen : MonoBehaviour {
 		}
 
 		CityBlocks.Add(Block);
-
+        Block.transform.SetParent(this.gameObject.transform);
 		BlockCount ++;
 	}
 
@@ -69,10 +69,6 @@ public class ProceduralCityGen : MonoBehaviour {
 
 	void CreateCity()
 	{
-		/* --NOTE--
-		 * I'm currently having issues with the BlockNum
-		 * I'll need to fix up the Code to reference the right block number
-		*/
 
 		for(int i = 0; i < NumberOfBlocks; i++)
 		{
@@ -80,7 +76,7 @@ public class ProceduralCityGen : MonoBehaviour {
 			float blockXposition = (spacing * countX + blockSpacing ) * i; 
 			CityBlocks[blockNum].transform.position = new Vector3(blockXposition, 0, 0);
 
-			for(int j = 0; j < NumberOfBlocks; j++)
+			for(int j = 1; j < NumberOfBlocks; j++)
 			{
 				blockNum++;
 				CreateCityBlock();
